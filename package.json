@@ -1,4 +1,6 @@
 {
+  "name": "skru-ssc-api",
+  "version": "0.0.1",
   "scripts": {
     "start": "tsx src/index.ts",
     "dev": "tsx watch src/index.ts",
