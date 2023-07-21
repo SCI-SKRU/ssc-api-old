@@ -1,6 +1,6 @@
 import { Hono } from 'hono'
 
-import { infoController } from '../controllers'
+import { infoController } from '@controllers'
 
 const info = new Hono()
 

@@ -1,7 +1,7 @@
 import { serve } from '@hono/node-server'
 
-import app from './routes'
-import { environment } from './config'
+import app from '@routes'
+import { environment } from '@config'
 
 serve(
 	{
