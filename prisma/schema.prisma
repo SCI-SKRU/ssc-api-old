@@ -1,0 +1,35 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+enum SubjectStatus {
+  OPEN
+  CLOSED
+}
+
+model Subject {
+  id                Int             @id @default(autoincrement())
+  name              String          @unique @db.VarChar(100)
+  code              String          @unique @db.VarChar(50)
+  price             Float           @db.DoublePrecision
+  status            SubjectStatus   @default(OPEN)
+  level             String?         @db.VarChar(100)
+  subjectCategoryId Int
+  createdAt         DateTime        @default(now())
+  updatedAt         DateTime        @updatedAt
+  SubjectCategory   SubjectCategory @relation(fields: [subjectCategoryId], references: [id])
+}
+
+model SubjectCategory {
+  id         Int       @id @default(autoincrement())
+  name       String    @unique @db.VarChar(100)
+  quotaHours Int       @db.SmallInt
+  createdAt  DateTime  @default(now())
+  updatedAt  DateTime  @updatedAt
+  Subject    Subject[]
+}
