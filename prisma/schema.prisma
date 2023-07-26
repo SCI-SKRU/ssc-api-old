@@ -33,3 +33,13 @@ model SubjectCategory {
   updatedAt  DateTime  @updatedAt
   Subject    Subject[]
 }
+
+model Coupon {
+  id        Int      @id @default(autoincrement())
+  code      String   @unique @db.VarChar(50)
+  value     Int      @db.SmallInt
+  unit      String   @db.VarChar(50)
+  expiredAt DateTime
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
