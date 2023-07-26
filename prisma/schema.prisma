@@ -23,6 +23,8 @@ model Subject {
   createdAt         DateTime        @default(now())
   updatedAt         DateTime        @updatedAt
   SubjectCategory   SubjectCategory @relation(fields: [subjectCategoryId], references: [id])
+
+  @@map("subjects")
 }
 
 model SubjectCategory {
@@ -32,6 +34,8 @@ model SubjectCategory {
   createdAt  DateTime  @default(now())
   updatedAt  DateTime  @updatedAt
   Subject    Subject[]
+
+  @@map("subject_categories")
 }
 
 model Coupon {
@@ -42,4 +46,6 @@ model Coupon {
   expiredAt DateTime
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
+
+  @@map("coupons")
 }
