@@ -12,6 +12,20 @@ enum SubjectStatus {
   CLOSED
 }
 
+enum BookingStatus {
+  BOOKING
+  PAID
+  COMPLETED
+  CANCELLED
+}
+
+enum SchoolSize {
+  SMALL
+  MEDIUM
+  LARGE
+  EXTRA_LARGE
+}
+
 model Subject {
   id                Int             @id @default(autoincrement())
   name              String          @unique @db.VarChar(100)
@@ -23,6 +37,7 @@ model Subject {
   createdAt         DateTime        @default(now())
   updatedAt         DateTime        @updatedAt
   SubjectCategory   SubjectCategory @relation(fields: [subjectCategoryId], references: [id])
+  BookingDetail     BookingDetail[]
 
   @@map("subjects")
 }
@@ -39,22 +54,66 @@ model SubjectCategory {
 }
 
 model Coupon {
-  id        Int      @id @default(autoincrement())
-  code      String   @unique @db.VarChar(50)
-  value     Int      @db.SmallInt
-  unit      String   @db.VarChar(50)
+  id        Int       @id @default(autoincrement())
+  code      String    @unique @db.VarChar(50)
+  value     Int       @db.SmallInt
+  unit      String    @db.VarChar(50)
   expiredAt DateTime
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
+  createdAt DateTime  @default(now())
+  updatedAt DateTime  @updatedAt
+  Booking   Booking[]
 
   @@map("coupons")
 }
 
 model Course {
-  id          Int     @id @default(autoincrement())
-  name        String  @unique @db.VarChar(100)
-  description String? @db.Text
-  timeSlot    Int     @db.SmallInt
+  id          Int      @id @default(autoincrement())
+  name        String   @unique @db.VarChar(100)
+  description String?  @db.Text
+  timeSlot    Int      @db.SmallInt
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
 
   @@map("courses")
+}
+
+model Booking {
+  id             Int             @id @default(autoincrement())
+  code           String          @unique @db.VarChar(50)
+  status         BookingStatus   @default(BOOKING)
+  school         String          @db.VarChar(100)
+  schoolSize     SchoolSize
+  district       String          @db.VarChar(50)
+  subDistrict    String          @db.VarChar(50)
+  province       String          @db.VarChar(50)
+  name           String          @db.VarChar(50)
+  position       String          @db.VarChar(50)
+  email          String          @db.VarChar(50)
+  phone          String          @db.VarChar(10)
+  classroomCount Int             @db.SmallInt
+  operationPrice Float           @db.DoublePrecision
+  total          Float           @db.DoublePrecision
+  couponId       Int?
+  createdAt      DateTime        @default(now())
+  updatedAt      DateTime        @updatedAt
+  Coupon         Coupon?         @relation(fields: [couponId], references: [id])
+  BookingDetail  BookingDetail[]
+
+  @@map("bookings")
+}
+
+model BookingDetail {
+  id         Int      @id @default(autoincrement())
+  bookingId  Int
+  subjectId  Int
+  startedAt  DateTime
+  endedAt    DateTime
+  nightPrice Float    @default(0) @db.DoublePrecision
+  price      Float    @db.DoublePrecision
+  createdAt  DateTime @default(now())
+  updatedAt  DateTime @updatedAt
+  Subject    Subject  @relation(fields: [subjectId], references: [id])
+  Booking    Booking  @relation(fields: [bookingId], references: [id])
+
+  @@map("booking_details")
 }
