@@ -1,6 +1,6 @@
 {
   "name": "skru-ssc-api",
-  "version": "0.2.0",
+  "version": "0.2.1",
   "scripts": {
     "prepare": "npx husky install",
     "start": "TS_NODE_BASEURL=./dist node -r tsconfig-paths/register dist/src/index.js",
