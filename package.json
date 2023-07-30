@@ -8,7 +8,7 @@
     "format": "rome format --write ./src/",
     "lint": "rome check ./src/",
     "build": "tsc",
-    "migrate": "prisma migrate reset --force"
+    "migrate": "prisma migrate reset"
   },
   "dependencies": {
     "@hono/node-server": "^1.1.0",
