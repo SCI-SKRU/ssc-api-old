@@ -10,6 +10,9 @@ services:
       context: .
       target: dev
     container_name: ssc-api
+    depends_on:
+      - postgres
+      - redis
     volumes:
       - ./:/usr/src/app
       - /usr/src/app/node_modules
