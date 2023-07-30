@@ -2,7 +2,7 @@
   "name": "skru-ssc-api",
   "version": "0.0.1",
   "scripts": {
-    "start": "tsx src/index.ts",
+    "start": "node dist/index.js",
     "dev": "tsx watch src/index.ts",
     "format": "rome format --write ./src/",
     "lint": "rome check ./src/"
