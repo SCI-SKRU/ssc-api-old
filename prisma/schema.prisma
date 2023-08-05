@@ -28,7 +28,7 @@ enum SchoolSize {
 
 model Subject {
   id                Int             @id @default(autoincrement())
-  name              String          @unique @db.VarChar(100)
+  name              String          @db.VarChar(100)
   code              String          @unique @db.VarChar(50)
   price             Float           @db.DoublePrecision
   status            SubjectStatus   @default(OPEN)
