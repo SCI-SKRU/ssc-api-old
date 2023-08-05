@@ -1,6 +1,7 @@
 import { Context } from 'hono'
 
 import { Prisma, Redis } from '@utils'
+import { environment } from '@config'
 
 const getCourses = async (ctx: Context): Promise<Response> => {
 	try {
@@ -24,7 +25,7 @@ const getCourses = async (ctx: Context): Promise<Response> => {
 			},
 		})
 
-		await Redis.set('course', JSON.stringify(courses))
+		await Redis.set('course', JSON.stringify(courses), { EX: environment.redis.generalTTL })
 
 		return ctx.json({
 			status: 'success',
