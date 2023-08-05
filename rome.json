@@ -23,5 +23,8 @@
 			"trailingComma": "es5",
 			"quoteProperties": "asNeeded"
 		}
+	},
+	"files": {
+		"ignore": ["node_modules"]
 	}
 }
