@@ -13,7 +13,7 @@
 		"enabled": true,
 		"indentStyle": "space",
 		"indentSize": 2,
-		"lineWidth": 100,
+		"lineWidth": 80,
 		"formatWithErrors": true
 	},
 	"javascript": {
@@ -25,6 +25,8 @@
 		}
 	},
 	"files": {
-		"ignore": ["node_modules"]
+		"ignore": [
+			"node_modules"
+		]
 	}
 }
