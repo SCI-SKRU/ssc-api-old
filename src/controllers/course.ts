@@ -1,19 +1,9 @@
 import { Context } from 'hono'
 
-import { Prisma, Redis } from '@utils'
-import { environment } from '@config'
+import { Prisma } from '@utils'
 
 const getCourses = async (ctx: Context): Promise<Response> => {
   try {
-    const coursesCache = await Redis.get('course')
-
-    if (coursesCache) {
-      return ctx.json({
-        status: 'success',
-        courses: JSON.parse(coursesCache),
-      })
-    }
-
     const courses = await Prisma.course.findMany({
       select: {
         name: true,
@@ -24,8 +14,6 @@ const getCourses = async (ctx: Context): Promise<Response> => {
         timeSlot: 'asc',
       },
     })
-
-    await Redis.set('course', JSON.stringify(courses), { EX: environment.redis.generalTTL })
 
     return ctx.json({
       status: 'success',
